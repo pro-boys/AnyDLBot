@@ -1,6 +1,10 @@
-requests
-youtube-dl
+aiohttp
+beautifulsoup4
 git+git://github.com/google/chatbase-python.git
-pyrogram[fast]
-Pillow
 hachoir
+numpy
+Pillow
+https://github.com/pyrogram/pyrogram/archive/asyncio.zip
+requests
+tgcrypto
+youtube-dl

@@ -32,8 +32,8 @@ from hachoir.parser import createParser
 from PIL import Image
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.command(["converttovideo"]))
-async def convert_to_video(bot, update):
+@pyrogram.Client.on_message(pyrogram.Filters.command(["converttoaudio"]))
+async def convert_to_audio(bot, update):
     if update.from_user.id not in Config.AUTH_USERS:
         await bot.delete_messages(
             chat_id=update.chat.id,
@@ -41,8 +41,8 @@ async def convert_to_video(bot, update):
             revoke=True
         )
         return
-    TRChatBase(update.from_user.id, update.text, "converttovideo")
-    if update.reply_to_message is not None:
+    TRChatBase(update.from_user.id, update.text, "converttoaudio")
+    if (update.reply_to_message is not None) and (update.reply_to_message.media is not None) :
         description = Translation.CUSTOM_CAPTION_UL_FILE
         download_location = Config.DOWNLOAD_LOCATION + "/"
         a = await bot.send_message(
@@ -68,6 +68,8 @@ async def convert_to_video(bot, update):
                 message_id=a.message_id
             )
             # don't care about the extension
+            # convert video to audio format
+            audio_file_location_path = the_real_download_location
             await bot.edit_message_text(
                 text=Translation.UPLOAD_START,
                 chat_id=update.chat.id,
@@ -104,27 +106,27 @@ async def convert_to_video(bot, update):
                 # https://pillow.readthedocs.io/en/3.1.x/reference/Image.html#create-thumbnails
             # try to upload file
             c_time = time.time()
-            await bot.send_video(
+            await bot.send_audio(
                 chat_id=update.chat.id,
-                video=the_real_download_location,
+                audio=audio_file_location_path,
                 caption=description,
                 duration=duration,
-                width=width,
-                height=height,
-                supports_streaming=True,
+                # performer="",
+                # title="",
                 # reply_markup=reply_markup,
                 thumb=thumb_image_path,
                 reply_to_message_id=update.reply_to_message.message_id,
                 progress=progress_for_pyrogram,
                 progress_args=(
                     Translation.UPLOAD_START,
-                    a,
+                    a, 
                     c_time
                 )
             )
             try:
-                os.remove(the_real_download_location)
                 os.remove(thumb_image_path)
+                os.remove(the_real_download_location)
+                os.remove(audio_file_location_path)
             except:
                 pass
             await bot.edit_message_text(
