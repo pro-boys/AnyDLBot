@@ -50,25 +50,34 @@ async def echo(bot, update):
     url = update.text
     youtube_dl_username = None
     youtube_dl_password = None
-    file_name = None
-    if "|" in url:
-        url_parts = url.split("|")
-        if len(url_parts) == 2:
-            url = url_parts[0]
-            file_name = url_parts[1]
-        elif len(url_parts) == 4:
-            url = url_parts[0]
-            file_name = url_parts[1]
-            youtube_dl_username = url_parts[2]
-            youtube_dl_password = url_parts[3]
-        else:
-            for entity in update.entities:
-                if entity.type == "text_link":
-                    url = entity.url
-                elif entity.type == "url":
-                    o = entity.offset
-                    l = entity.length
-                    url = url[o:o + l]
+    URL, FILENAME = range(2)
+    start_string = "{}".format("pyrogram_data")
+    ckeyboard = [      
+                        pyrogram.InlineKeyboardButton(
+                            "CUSTOM FILENAME ", 
+                            callback_data=start_string.encode("UTF-8")
+                        )
+                    ]
+     await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.FORMAT_SELECTION,
+            reply_markup=pyrogram.InlineKeyboardMarkup(ckeyboard),
+            parse_mode="html",
+            reply_to_message_id=update.message_id
+        )
+    return URL
+
+@pyrogram.Client.on_callback_query(dynamic_data(b"cfname"))
+async def pyrogram_data(bot, update):
+await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.FORMAT_SELECTION,
+            reply_markup=reply_markup,
+            parse_mode="html",
+            reply_to_message_id=update.message_id
+        )
+    file_name = update.text
+    
         if url is not None:
             url = url.strip()
         if file_name is not None:
