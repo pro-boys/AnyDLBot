@@ -50,7 +50,6 @@ async def echo(bot, update):
     url = update.text
     youtube_dl_username = None
     youtube_dl_password = None
-    URL, FILENAME = range(2)
     start_string = "{}".format("pyrogram_data")
     ckeyboard = [      
                         pyrogram.InlineKeyboardButton(
@@ -65,17 +64,10 @@ async def echo(bot, update):
             parse_mode="html",
             reply_to_message_id=update.message_id
         )
-    return URL
 
-@pyrogram.Client.on_callback_query(dynamic_data(b"cfname"))
+@pyrogram.Client.on_callback_query(pyrogram.Filters.callback_data("pyrogram_data"))
 async def pyrogram_data(bot, update):
-await bot.send_message(
-            chat_id=update.chat.id,
-            text=Translation.FORMAT_SELECTION,
-            reply_markup=reply_markup,
-            parse_mode="html",
-            reply_to_message_id=update.message_id
-        )
+await message.message.edit("pyrogram_data")
     file_name = update.text
     
         if url is not None:
