@@ -32,7 +32,7 @@ from helper_funcs.help_uploadbot import DownLoadFile
 
 
 @pyrogram.Client.on_message(pyrogram.Filters.regex(pattern=".*http.*"))
-async def echo(bot, update):
+async def echo(bot, update, message):
     if update.from_user.id not in Config.AUTH_USERS:
         await bot.delete_messages(
             chat_id=update.chat.id,
@@ -50,24 +50,15 @@ async def echo(bot, update):
     url = update.text
     youtube_dl_username = None
     youtube_dl_password = None
-    start_string = "{}".format("pyrogram_data")
-    ckeyboard = [      
-                        pyrogram.InlineKeyboardButton(
-                            "CUSTOM FILENAME ", 
-                            callback_data=start_string.encode("UTF-8")
-                        )
-                    ]
-reply_markup = pyrogram.InlineKeyboardMarkup(ckeyboard)
-     await bot.send_message(
-            chat_id=update.chat.id,
-            text=Translation.FORMAT_SELECTION,
-            reply_markup=reply_markup,
-            parse_mode="html",
-            reply_to_message_id=update.message_id
-        )
+  keyboard = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(_("Custom Filename"), callback_data="pyrogram_data")]
+        ])
+await message.reply(_("Hello! I'm EduuRobot. To discover my functions start a conversation with me."),
+                            reply_markup=keyboard)
+
 
 @pyrogram.Client.on_callback_query(pyrogram.Filters.callback_data("pyrogram_data"))
-async def pyrogram_data(bot, update):
+async def pyrogram_data(bot, update, message):
 await message.message.edit("pyrogram_data")
     file_name = update.text
     
