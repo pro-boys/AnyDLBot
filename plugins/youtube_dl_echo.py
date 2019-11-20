@@ -23,7 +23,6 @@ else:
 # the Strings used for this "thing"
 from translation import Translation
 
-import pyrogram
 from pyrogram import Client, Filters, InlineKeyboardMarkup, InlineKeyboardButton
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
