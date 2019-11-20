@@ -51,9 +51,9 @@ async def echo(bot, update, message):
     youtube_dl_username = None
     youtube_dl_password = None
   keyboard = InlineKeyboardMarkup(inline_keyboard=[
-            [InlineKeyboardButton(_("Custom Filename"), callback_data="pyrogram_data")]
+            [InlineKeyboardButton(("Custom Filename"), callback_data="pyrogram_data")]
         ])
-await message.reply(_("Hello! I'm EduuRobot. To discover my functions start a conversation with me."),
+await message.reply(("Hello! I'm EduuRobot. To discover my functions start a conversation with me."),
                             reply_markup=keyboard)
 
 
