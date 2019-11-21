@@ -50,11 +50,11 @@ async def echo(bot, update, message):
     url = update.text
     youtube_dl_username = None
     youtube_dl_password = None
-  keyboard = pyrogram.InlineKeyboardMarkup(inline_keyboard=[
+    ckeyboard = pyrogram.InlineKeyboardMarkup(inline_ckeyboard=[
             [pyrogram.InlineKeyboardButton(("Custom Filename"), callback_data="pyrogram_data")]
         ])
 await bot.send_message("Hello! I'm EduuRobot. To discover my functions start a conversation with me.",
-                            reply_markup=keyboard)
+                            reply_markup=ckeyboard)
 
 
 @pyrogram.Client.on_callback_query(pyrogram.Filters.callback_data("pyrogram_data"))
