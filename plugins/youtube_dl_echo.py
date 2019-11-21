@@ -53,13 +53,13 @@ async def echo(bot, update, message):
   keyboard = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(("Custom Filename"), callback_data="pyrogram_data")]
         ])
-await message.reply(("Hello! I'm EduuRobot. To discover my functions start a conversation with me."),
+await bot.send_message("Hello! I'm EduuRobot. To discover my functions start a conversation with me.",
                             reply_markup=keyboard)
 
 
 @pyrogram.Client.on_callback_query(pyrogram.Filters.callback_data("pyrogram_data"))
 async def pyrogram_data(bot, update, message):
-await message.message.edit("pyrogram_data")
+await bot.send_message("pyrogram_data")
     file_name = update.text
     
         if url is not None:
