@@ -58,11 +58,10 @@ await bot.send_message(chat_id=update.chat.id,
                        reply_to_message_id=update.message_id,
                             reply_markup=ckeyboard)
 
-                       return ""
 
 @pyrogram.Client.on_callback_query(pyrogram.Filters.callback_data("pyrogram_data"))
 async def pyrogram_data(bot, update, message):
-await bot.send_message(chat_id=update.chat.id, 
+await bot.edit_message_text(chat_id=update.chat.id, 
                        text="Hello!",
                        reply_to_message_id=update.message_id,
                            )
