@@ -149,6 +149,10 @@ async def echo(bot, update):
         with open(save_ytdl_json_path, "w", encoding="utf8") as outfile:
             json.dump(response_json, outfile, ensure_ascii=False)
         # logger.info(response_json)
+    if "|" in url:
+        default_file = file_name
+    else:
+        default_file = response_json["title"] 
         inline_keyboard = []
         duration = None
         if "duration" in response_json:
@@ -252,11 +256,6 @@ async def echo(bot, update):
             ])
         reply_markup = pyrogram.InlineKeyboardMarkup(inline_keyboard)
         # logger.info(reply_markup)
-    if "|" in url:
-        default_file = file_name
-    else:
-        default_file = response_json["title"]
-
         thumbnail = Config.DEF_THUMB_NAIL_VID_S
         thumbnail_image = Config.DEF_THUMB_NAIL_VID_S
         if "thumbnail" in response_json:
