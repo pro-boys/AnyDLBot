@@ -91,7 +91,7 @@ async def echo(bot, update):
     if "|" in url:
         default_file = file_name
     else:
-        default_file = str(response_json.get("title"))
+        default_file = response_json["title"]
     if Config.HTTP_PROXY != "":
         command_to_exec = [
             "youtube-dl",
