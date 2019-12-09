@@ -88,6 +88,11 @@ async def echo(bot, update):
                 o = entity.offset
                 l = entity.length
                 url = url[o:o + l]
+    if "|" in url:
+        default_file = file_name
+    else:
+        default_file = str(response_json.get("title")) + \
+        "_" + youtube_dl_format
     if Config.HTTP_PROXY != "":
         command_to_exec = [
             "youtube-dl",
@@ -270,7 +275,7 @@ async def echo(bot, update):
         )
         await bot.send_message(
             chat_id=update.chat.id,
-            text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD + "\n<code>Filename" + file_name + "</code>",
+            text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD + "\n\n<code>Filename : " + default_file + "</code>",
             reply_markup=reply_markup,
             parse_mode="html",
             reply_to_message_id=update.message_id
@@ -295,7 +300,7 @@ async def echo(bot, update):
         reply_markup = pyrogram.InlineKeyboardMarkup(inline_keyboard)
         await bot.send_message(
             chat_id=update.chat.id,
-            text=Translation.FORMAT_SELECTION.format("") + "\n<code>Filename" + file_name + "</code>",
+            text=Translation.FORMAT_SELECTION.format("") + "\n\n<code>Filename : " + default_file + "</code>",
             reply_markup=reply_markup,
             parse_mode="html",
             reply_to_message_id=update.message_id
