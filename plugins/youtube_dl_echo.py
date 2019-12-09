@@ -88,11 +88,7 @@ async def echo(bot, update):
                 o = entity.offset
                 l = entity.length
                 url = url[o:o + l]
-    if "|" in url:
-        default_file = file_name
-    else:
-        default_file = response_json["title"]
-    if Config.HTTP_PROXY != "":
+        if Config.HTTP_PROXY != "":
         command_to_exec = [
             "youtube-dl",
             "--no-warnings",
@@ -256,6 +252,11 @@ async def echo(bot, update):
             ])
         reply_markup = pyrogram.InlineKeyboardMarkup(inline_keyboard)
         # logger.info(reply_markup)
+    if "|" in url:
+        default_file = file_name
+    else:
+        default_file = response_json["title"]
+
         thumbnail = Config.DEF_THUMB_NAIL_VID_S
         thumbnail_image = Config.DEF_THUMB_NAIL_VID_S
         if "thumbnail" in response_json:
