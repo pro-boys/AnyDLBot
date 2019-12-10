@@ -68,12 +68,12 @@ async def pyrogram_data(bot, update, message):
     file_name = update.text
     if url is not None:
             url = url.strip()
-        if file_name is not None:
+    if file_name is not None:
             file_name = file_name.strip()
         # https://stackoverflow.com/a/761825/4723940
-        if youtube_dl_username is not None:
+    if youtube_dl_username is not None:
             youtube_dl_username = youtube_dl_username.strip()
-        if youtube_dl_password is not None:
+    if youtube_dl_password is not None:
             youtube_dl_password = youtube_dl_password.strip()
         logger.info(url)
         logger.info(file_name)
