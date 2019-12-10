@@ -66,8 +66,7 @@ async def pyrogram_data(bot, update, message):
                        reply_to_message_id=update.message_id,
                            )
     file_name = update.text
-    
-        if url is not None:
+    if url is not None:
             url = url.strip()
         if file_name is not None:
             file_name = file_name.strip()
