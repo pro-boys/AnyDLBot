@@ -75,8 +75,8 @@ async def pyrogram_data(bot, update, message):
             youtube_dl_username = youtube_dl_username.strip()
     if youtube_dl_password is not None:
             youtube_dl_password = youtube_dl_password.strip()
-        logger.info(url)
-        logger.info(file_name)
+    logger.info(url)
+    logger.info(file_name)
     else:
         for entity in update.entities:
             if entity.type == "text_link":
